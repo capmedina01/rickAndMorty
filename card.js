@@ -1,5 +1,6 @@
 const btnGenerateCharacter = document.getElementById("generate-character");
 const container = document.getElementById("cards-container");
+const searchCard = document.getElementById("input-character");
 
 function createCards(data) {
   data.results.forEach((element) => {
@@ -26,3 +27,16 @@ const getCharacters = async () => {
 };
 
 btnGenerateCharacter.addEventListener("click", getCharacters);
+
+searchCard.addEventListener("keyup", (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  const characterContainer = document.getElementById("cards-container");
+  const containerArray = Array.from(characterContainer.children);
+
+  console.log(containerArray);
+
+  containerArray.forEach((card) => {
+    const nameCharacter = card.querySelector("h2").textContent.toLowerCase();
+    card.style.display = nameCharacter.includes(searchTerm) ? "flex" : "none";
+  });
+});
